@@ -64,6 +64,7 @@ const WelcomePageComponent = () => {
                 const uniqueId = generateUniqueId(); // Implement a function to generate a unique ID
                 document.cookie = `unique_id=${uniqueId}; path=/; samesite=Lax`;
             }
+            console.log(document.cookie)
 
             // Call the getCampaignsApi function
             const campaignData = await getCampaignsApi(campaignId);
