@@ -64,7 +64,7 @@ const WelcomePageComponent = () => {
             // Specific check for the unique_id cookie
             if (!document.cookie.includes("unique_id")) {
                 const uniqueId = generateUniqueId(); // Generate a unique ID
-                document.cookie = `unique_id=${uniqueId}; path=/; samesite=Lax`;
+                document.cookie = `unique_id=${uniqueId}; path=/; samesite=None`;
             }
 
             // Logging the cookies to the console
