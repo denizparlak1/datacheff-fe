@@ -1,8 +1,14 @@
 import {API} from "../api/Api";
 import axios from 'axios';
 const getCampaignsApi = async (campaigns_id) =>{
+    const cookie = document.cookie
     const response = await fetch(API['getCampaigns']+`${campaigns_id}/`,{
         method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+             Cookie: cookie
+        },
+        credentials: 'include',
     });
     if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
