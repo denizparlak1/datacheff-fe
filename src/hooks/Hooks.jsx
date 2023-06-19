@@ -4,8 +4,7 @@ const getCampaignsApi = async (campaigns_id,cookie) =>{
     const response = await fetch(API['getCampaigns']+`${campaigns_id}/`,{
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json',
-             Cookie: cookie
+            'Content-Type': 'application/json'
         },
         credentials: 'include',
     });
