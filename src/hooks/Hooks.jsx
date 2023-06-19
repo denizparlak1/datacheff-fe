@@ -3,7 +3,6 @@ import axios from 'axios';
 const getCampaignsApi = async (campaigns_id) =>{
     const response = await fetch(API['getCampaigns']+`${campaigns_id}/`,{
         method: 'GET',
-        credentials: 'include',
     });
     if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
