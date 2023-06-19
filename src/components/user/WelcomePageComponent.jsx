@@ -71,7 +71,7 @@ const WelcomePageComponent = () => {
             console.log("All cookies:", document.cookie);
 
 
-            const campaignData = await getCampaignsApi(campaignId, document.cookie);
+            const campaignData = await getCampaignsApi(campaignId);
             setImageUrls(Object.values(campaignData));
 
             // Process the campaign data or perform any other necessary actions
