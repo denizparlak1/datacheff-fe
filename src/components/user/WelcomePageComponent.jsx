@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, CircularProgress,TextField, Typography } from '@mui/material';
+import { Button, CircularProgress,TextField, Typography,Snackbar,Alert } from '@mui/material';
 import { styled } from '@mui/system';
 import { getCampaignsApi } from '../../hooks/Hooks';
 import BannerImageComponent from "../banners/BannerImageComponent";
@@ -39,7 +39,9 @@ const ScrollableContainer = styled('div')({
 const WelcomePageComponent = () => {
     const [campaignId, setCampaignId] = useState('');
     const [imageUrls, setImageUrls] = useState([]);
-
+    const [errorSnackbarOpen, setErrorSnackbarOpen] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [cookie, setCookie] = useState('');
 
     const [loading, setLoading] = useState(false);
 
@@ -58,24 +60,28 @@ const WelcomePageComponent = () => {
     const handleApplyButtonClick = async () => {
         try {
             setLoading(true);
-
             // Create a new cookie if it doesn't exist
             if (!document.cookie) {
                 const uniqueId = generateUniqueId(); // Implement a function to generate a unique ID
                 document.cookie = `unique_id=${uniqueId}; path=/; samesite=Lax`;
+                setCookie(document.cookie)
+                console.log(document.cookie)
+
             }
             console.log(document.cookie)
 
             // Call the getCampaignsApi function
-            const campaignData = await getCampaignsApi(campaignId);
+            console.log("test")
+            console.log(cookie)
+            const campaignData = await getCampaignsApi(campaignId,cookie);
             setImageUrls(Object.values(campaignData));
 
             // Process the campaign data or perform any other necessary actions
             // ...
         } catch (error) {
             console.error('Error:', error);
-            // Handle the error gracefully
-            // ...
+            setErrorMessage('Campaign id cannot be greater than 50');
+            setErrorSnackbarOpen(true); // Open the Snackbar
         }
         finally {
             setLoading(false); // Set loading state back to false
@@ -105,6 +111,17 @@ const WelcomePageComponent = () => {
                     <BannerImageComponent imageUrls={imageUrls} />
                 </ScrollableContainer>
             )}
+
+            <Snackbar
+                open={errorSnackbarOpen}
+                autoHideDuration={5000}
+                onClose={() => setErrorSnackbarOpen(false)}
+            >
+                <Alert severity="error" onClose={() => setErrorSnackbarOpen(false)}>
+                    {errorMessage}
+                </Alert>
+            </Snackbar>
+
         </Container>
     );
 };
