@@ -63,9 +63,8 @@ const WelcomePageComponent = () => {
             // Create a new cookie if it doesn't exist
             if (!document.cookie) {
                 const uniqueId = generateUniqueId(); // Implement a function to generate a unique ID
-                document.cookie = `unique_id=${uniqueId}; path=/; samesite=Lax`;
+                document.cookie = `unique_id=${uniqueId}; path=/; samesite=None`;
                 setCookie(document.cookie)
-                console.log(document.cookie)
 
             }
             console.log(document.cookie)
