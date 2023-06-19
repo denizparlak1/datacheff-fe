@@ -3,9 +3,6 @@ import axios from 'axios';
 const getCampaignsApi = async (campaigns_id) =>{
     const response = await fetch(API['getCampaigns']+`${campaigns_id}/`,{
         method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        },
         credentials: 'include',
     });
     if (!response.ok) {
