@@ -60,19 +60,19 @@ const WelcomePageComponent = () => {
     const handleApplyButtonClick = async () => {
         try {
             setLoading(true);
-            // Create a new cookie if it doesn't exist
-            if (!document.cookie) {
-                const uniqueId = generateUniqueId(); // Implement a function to generate a unique ID
-                document.cookie = `unique_id=${uniqueId}; path=/; samesite=None`;
-                setCookie(document.cookie)
 
+            // Specific check for the unique_id cookie
+            if (!document.cookie.includes("unique_id")) {
+                const uniqueId = generateUniqueId(); // Generate a unique ID
+                document.cookie = `unique_id=${uniqueId}; path=/; samesite=Lax`;
             }
-            console.log(document.cookie)
+
+            // Logging the cookies to the console
+            console.log("All cookies:", document.cookie);
 
             // Call the getCampaignsApi function
-            console.log("test")
-            console.log(cookie)
-            const campaignData = await getCampaignsApi(campaignId,cookie);
+            console.log("test");
+            const campaignData = await getCampaignsApi(campaignId, document.cookie);
             setImageUrls(Object.values(campaignData));
 
             // Process the campaign data or perform any other necessary actions
@@ -86,6 +86,7 @@ const WelcomePageComponent = () => {
             setLoading(false); // Set loading state back to false
         }
     };
+
 
     return (
         <Container>
